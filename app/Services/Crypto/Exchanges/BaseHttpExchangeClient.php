@@ -15,20 +15,13 @@ abstract class BaseHttpExchangeClient
 
     protected function get(string $path, array $query = []): array
     {
-        try {
-            $resp = $this->request('GET', $path, $query);
-            $json = $resp->json();
-
-            return is_array($json) ? $json : [];
-        } catch (ConnectionException|RequestException $e) {
-            Log::warning('Exchange HTTP error', [
-                'exchange' => static::class,
-                'base_url' => $this->cfg['base_url'] ?? null,
-                'path' => $path,
-                'status' => method_exists($e, 'response') && $e->response ? $e->response->status() : null,
-                'message' => $e->getMessage(),
-            ]);
+        $resp = $this->request('GET', $path, $query);
+        if ($resp === null) {
             return [];
+        }
+        try {
+            $json = $resp->json();
+            return is_array($json) ? $json : [];
         } catch (Throwable $e) {
             Log::warning('Exchange unexpected error', [
                 'exchange' => static::class,

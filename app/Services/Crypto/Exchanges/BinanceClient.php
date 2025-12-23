@@ -4,8 +4,6 @@ namespace App\Services\Crypto\Exchanges;
 
 use App\Services\Crypto\ExchangeClientInterface;
 use App\Services\Crypto\PairKey;
-use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Http\Client\RequestException;
 
 final class BinanceClient extends BaseHttpExchangeClient implements ExchangeClientInterface
 {

@@ -37,7 +37,7 @@ final readonly class PriceAggregatorService
             return null;
         }
 
-        [$minEx, $maxEx] = $this->minMaxExchange($pairKey, $pricesByExchange);
+        [$minEx, $maxEx] = $this->minMaxExchange($pricesByExchange);
 
         return [
             'pair' => $pairKey,
@@ -146,7 +146,7 @@ final readonly class PriceAggregatorService
      * @param array<string, string> $pricesByExchange
      * @return array{0: string, 1: string} [minExchange, maxExchange]
      */
-    private function minMaxExchange(string $pairKey, array $pricesByExchange): array
+    private function minMaxExchange(array $pricesByExchange): array
     {
         $minEx = array_key_first($pricesByExchange);
         $maxEx = array_key_first($pricesByExchange);
